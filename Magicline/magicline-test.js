@@ -14,40 +14,40 @@ async function fetchNewCustomerData() {
     var countryCode = document.getElementById("countryCode").value;
 
     const resp = await fetch(
-            `https://connectdemo.api.magicline.com/connect/v1/rate-bundle`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+        `https://connectdemo.api.magicline.com/connect/v1/rate-bundle`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            studioId: studioId,
+            contract: {
+                rateBundleTermId: rateBundleTermId,
+                startDate: startDate,
+            },
+            customer: {
+                firstname: firstname,
+                lastname: lastname,
+                dateOfBirth: dateOfBirth,
+                email: email,
+                street: street,
+                houseNumber: houseNumber,
+                city: city,
+                zipCode: zipCode,
+                countryCode: countryCode,
+                paymentChoice: "DIRECT_DEBIT",
+                bankAccount: {
+                    iban: "DE89370400440532013000",
+                    bic: "COBADEFFXXX",
+                    accountHolder: "Leon Fischer",
                 },
-                body: JSON.stringify({
-                    studioId: studioId,
-                    contract: {
-                        rateBundleTermId: rateBundleTermId,
-                        startDate: startDate,
-                    },
-                    customer: {
-                        firstname: firstname,
-                        lastname: lastname,
-                        dateOfBirth: dateOfBirth,
-                        email: email,
-                        street: street,
-                        houseNumber: houseNumber,
-                        city: city,
-                        zipCode: zipCode,
-                        countryCode: countryCode,
-                        paymentChoice: "DIRECT_DEBIT",
-                        bankAccount: {
-                            iban: "DE89370400440532013000",
-                            bic: "COBADEFFXXX",
-                            accountHolder: "Leon Fischer",
-                        },
-                    },
-                }),
-            }
-        )
+            },
+        }),
+    }
+    )
         .then((response) => response.json())
         .then((data) => {
-            createTableContent(data);
+            createDynamicTableContent(data);
         })
         .catch((error) => console.error("Error fetching data:", error));
 }
@@ -63,11 +63,11 @@ async function fetchStudioData(studioTags = "", addressSearchQuery = "") {
     }).toString();
 
     const resp = await fetch(
-            `https://connectdemo.api.magicline.com/connect/v2/studio?${query}`, { method: "GET" }
-        )
+        `https://connectdemo.api.magicline.com/connect/v2/studio?${query}`, { method: "GET" }
+    )
         .then((response) => response.json())
         .then((data) => {
-            createTableContent(data);
+            createDynamicTableContent(data);
         })
         .catch((error) => console.error("Error fetching data:", error));
 }
@@ -82,16 +82,16 @@ async function fetchBundleTermData() {
     }).toString();
 
     const resp = await fetch(
-            `https://connectdemo.api.magicline.com/connect/v1/rate-bundle?${query}`, { method: "GET" }
-        )
+        `https://connectdemo.api.magicline.com/connect/v1/rate-bundle?${query}`, { method: "GET" }
+    )
         .then((response) => response.json())
         .then((data) => {
-            createTableContent(data);
+            createDynamicTableContent(data);
         })
         .catch((error) => console.error("Error fetching data:", error));
 }
 
-function createTableContent(data) {
+function createDynamicTableContent(data) {
     const table = document.getElementById("jsonTable");
     const thead = table.querySelector("thead");
     const tbody = table.querySelector("tbody");
