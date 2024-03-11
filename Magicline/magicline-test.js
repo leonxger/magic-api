@@ -39,7 +39,7 @@ async function fetchNewCustomerData() {
                 bankAccount: {
                     iban: "DE89370400440532013000",
                     bic: "COBADEFFXXX",
-                    accountHolder: "Leon Fischer",
+                    accountHolder: "Leon Mustermann",
                 },
             },
         }),
@@ -52,7 +52,7 @@ async function fetchNewCustomerData() {
         .catch((error) => console.error("Error fetching data:", error));
 }
 
-async function fetchStudioData(studioTags = "", addressSearchQuery = "") {
+async function fetchStudioData() {
     var studioTagsForm = document.getElementById("studioTags").value;
     var addressSearchQueryForm =
         document.getElementById("addressSearchQuery").value;
