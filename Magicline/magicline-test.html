@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Form</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/magicline-test.js"></script>
+        <style src="/magicline-test.css"></style>
+    </head>
+
+    <body>
+        <!-- Get Studio Data-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container" style="padding: 100px;">
+                    <h2>Get All Studio Data</h2>
+                    <form id="studioForm">
+                        <div class="form-group">
+                            <label for="studioTags">Country Code:</label>
+                            <input type="text" class="form-control" id="studioTags" name="studioTags" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addressSearchQuery">Payment Choice:</label>
+                            <input type="text" class="form-control" id="addressSearchQuery" name="addressSearchQuery" required>
+                        </div>
+
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalDialog" onclick="fetchStudioData()">
+                            Get Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Get Bundle Terms Data-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container" style="padding: 100px;">
+                    <h2>Get Bundle Terms Data</h2>
+                    <form id="bundleTermsForm">
+                        <div class="form-group">
+                            <label for="studioID">StudioID:</label>
+                            <input type="text" class="form-control" id="studioID" name="studioID" required>
+                        </div>
+
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalDialog" onclick="fetchBundleTermData()">
+                            Get Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Customer-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container" style="padding: 100px;">
+                    <h2>Create Customer</h2>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="studioId">Studio ID:</label>
+                            <input type="number" class="form-control" id="studioId" name="studioId" value="1210007620" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rateBundleTermId">Rate Bundle Term ID:</label>
+                            <input type="number" class="form-control" id="rateBundleTermId" name="rateBundleTermId" value="1210008498" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start Date:</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname">First Name:</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" value="Leon" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Last Name:</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname" value="Schwass" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth:</label>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="leonschwass@live.de" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="street">Street:</label>
+                            <input type="text" class="form-control" id="street" name="street" value="Am kleinen Rotenberg" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="houseNumber">House Number:</label>
+                            <input type="text" class="form-control" id="houseNumber" name="houseNumber" value="16" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City:</label>
+                            <input type="text" class="form-control" id="city" name="city" value="Wittlich" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code:</label>
+                            <input type="text" class="form-control" id="zipCode" name="zipCode" value="54516" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="countryCode">Country Code:</label>
+                            <input type="text" class="form-control" id="countryCode" name="countryCode" value="DE" required>
+                        </div>
+
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalDialog" onclick="fetchNewCustomerData()">
+                            Get Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalDialog" tabindex="-1" aria-labelledby="modalDialogLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalDialogLabel">Data Dialog</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Table inside Modal -->
+                        <div class="table-responsive" style="height: 650px">
+                            <table class="table table-striped" id="jsonTable">
+                                <thead>
+                                    <!-- Headers will be dynamically generated -->
+                                </thead>
+                                <tbody>
+                                    <!-- Rows will be dynamically generated -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
